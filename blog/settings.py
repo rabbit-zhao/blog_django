@@ -25,7 +25,7 @@ SECRET_KEY = ')d^!9rx%^790mqi@ep$6tq+%w^^&9pb@k%vhcl*gve%d7s_r^%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -120,3 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'lovezyf/static' ## 新增行
+STATICFILES_DIRS = (
+     os.path.join("/lovezyf/", 'static').replace('\\', '/'),
+)

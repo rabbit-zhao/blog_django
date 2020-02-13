@@ -89,8 +89,8 @@
 						<li><a href="#section-about">猪和养猪人</a></li>
 						<li><a href="#section-portfolio">为了七秒的记忆</a></li>
 						<li><a href="#section-contact">留言的板子</a></li>
-                        <li><a href="https://www.baidu.com">我们的记录簿</a></li>
-                        <li><a href="/">赵先生的blog</a></li>
+                        <li><a href="https://www.baidu.com">我们的记录簿(别看了没有)</a></li>
+{#                        <li><a href="/">赵先生的blog</a></li>#}
 {#                        <audio autoplay controls="controls" loop="loop"#}
 {#            	src="music/tkzc.mp3" width="50">#}
 {#      		你的浏览器版本太低，不支持audio标签#}
@@ -568,24 +568,33 @@ I love thee purely, as they turn from Praise<br>
 			 <i class="fa fa-heart"></i>
 			 <div class="underline"></div>
 			<div class="sub-sub">
-			    后台尚未开发
+			    有bug（我也不会改了）
 			</div>
+{#        <form method="post">#}
+{#            {% csrf_token %}#}
+{#            <div>#}
+{#                {{ comment_form.name }}#}
+{#                {{ comment_form.content }}#}
+{#            </div>#}
+{#            <input type="submit" value="re">#}
+{#        </form>#}
 			
             <!-- ===== Form ===== -->
-            <form class="contact-form" id="contact" role="form" method="post" action="{% url 'submit' %}">
+            <form class="contact-form" id="contact" role="form" method="post" >
+                {% csrf_token %}
 
                 <!-- ===== Succes Send Email ===== -->
-                <h6 class="success">
-                <span class="olored-text icon_check"></span> Your message successfully. </h6>
-
-                <!-- ===== Error Send Email ===== -->
-                <h6 class="error">
-                <span class="colored-text icon_error-circle_alt"></span> your message sent pending. </h6>
-
-                <div class="field-wrapper col-md-12">
-                    <input class="form-control input-box" id="contact-form-name" type="text" name="contact-form-name" placeholder="想使用的名字">
-                </div>
-
+{#                <h6 class="success">#}
+{#                <span class="olored-text icon_check"></span> Your message successfully. </h6>#}
+{##}
+{#                <!-- ===== Error Send Email ===== -->#}
+{#                <h6 class="error">#}
+{#                <span class="colored-text icon_error-circle_alt"></span> your message sent pending. </h6>#}
+{##}
+{#                <div class="field-wrapper col-md-12">#}
+{#                    <input class="form-control input-box" id="contact-form-name" type="text" name="contact-form-name" placeholder="想使用的名字">#}
+{#                </div>#}
+{##}
 {#                <div class="field-wrapper col-md-6">#}
 {#                    <input class="form-control input-box" id="contact-form-email" type="email" name="contact-form-email" placeholder="Email">#}
 {#                </div>#}
@@ -593,14 +602,35 @@ I love thee purely, as they turn from Praise<br>
 {#                <div class="field-wrapper col-md-12">#}
 {#                    <input class="form-control input-box" id="contact-form-subject" type="text" name="contact-form-subject" placeholder="Subject">#}
 {#                </div>#}
-
-                <div class="field-wrapper col-md-12">
-                    <textarea class="form-control textarea-box" id="contact-form-message" rows="7" name="contact-form-message" placeholder="请输入内容"></textarea>
-                </div>
-
-                <button class="btn standard-button" type="submit" value="Submit" id="contact-form-submit" name="submit" data-style="expand-left">提交也没用</button>
+{##}
+{#                <div class="field-wrapper col-md-12">#}
+{#                    <textarea class="form-control textarea-box" id="contact-form-message" rows="7" name="contact-form-message" placeholder="请输入内容"></textarea>#}
+{#                </div>#}
+{#                <label for="your_name">Your name: </label>#}
+                {{ comment_form.name }}
+{#                <label for="your_conten">Your name: </label>#}
+                <br>
+                {{ comment_form.content }}
+                <input class="btn standard-button" type="submit" value="提交" id="contact-form-submit" name="submit" data-style="expand-left">
             </form>
+        <br>
             <!-- ===== End Form ===== -->
+
+            <!-- 评论列表 -->
+        <h2>评论区</h2>
+            <ul class="list-group">
+                {% for comment in comment_list %}
+                <li class="list-group-item">
+                    <div class="name">
+                        <strong style="color: #843534;font-size: x-large">{{ comment.name }}</strong>
+                        <span>{{ comment.time|date:"Y-m-d H:i:s" }}</span>
+                    </div>
+                    <div class="comment-content">
+                        {{ comment.message }}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
 			
 		</div>
 	</div>
@@ -608,6 +638,9 @@ I love thee purely, as they turn from Praise<br>
 </div>
 
 </section>
+
+
+
 
 
 <!-- ===== Footer ===== -->
